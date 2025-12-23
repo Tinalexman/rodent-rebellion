@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2h1aw2vkvc2h"]
+[gd_scene load_steps=10 format=3 uid="uid://d2h1aw2vkvc2h"]
 
-[ext_resource type="PackedScene" uid="uid://x4xe7woyxt03" path="res://scenes/enemy.tscn" id="1_k0juu"]
+[ext_resource type="Script" uid="uid://dr3n7vmxusowm" path="res://scripts/enemy_spawner.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://ds70l2yfgfsm1" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://x4xe7woyxt03" path="res://scenes/enemy.tscn" id="2_71j4m"]
 [ext_resource type="PackedScene" uid="uid://dhthch7vc287b" path="res://scenes/ramp.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://c7w83yyq8cqcw" path="res://scripts/camera_spring_arm.gd" id="3_4wyf3"]
 
@@ -20,8 +21,13 @@ size = Vector3(1, 0.5, 1)
 
 [node name="World" type="Node3D"]
 
-[node name="Enemy" parent="." instance=ExtResource("1_k0juu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4877183, 0)
+[node name="EnemySpawner" type="Node3D" parent="." node_paths=PackedStringArray("root_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 1, 52.475174)
+script = ExtResource("1_k0juu")
+enemy_prefab = ExtResource("2_71j4m")
+root_node = NodePath("..")
+max_enemies = 5
+spawn_rate = 1
 
 [node name="Map" type="Node3D" parent="."]
 

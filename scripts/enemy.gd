@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
 @export var move_speed: float
-
 @onready var navigation_agent := $NavigationAgent3D as NavigationAgent3D
 
 var player : Node3D
@@ -11,6 +10,8 @@ var player : Node3D
 
 var current_health : int
 
+signal enemy_died()
+
 func _ready() -> void:
 	current_health = initial_health
 	$Control/TextureProgressBar.max_value = initial_health
@@ -19,6 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	if current_health <= 0:
+		enemy_died.emit()
 		queue_free()
 		return
 	
@@ -37,3 +39,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Bullet"):
 		current_health -= hit_point
 		$Control/TextureProgressBar.value = current_health
+		
+		if area.owner:
+			area.owner.queue_free()

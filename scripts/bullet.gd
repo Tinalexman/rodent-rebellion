@@ -12,3 +12,4 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	position += bullet_direction * bullet_speed * delta
+	
