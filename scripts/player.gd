@@ -5,7 +5,13 @@ extends CharacterBody3D
 @export var world_root_node: Node3D
 
 
+var is_alive = true
+
 func _physics_process(delta: float) -> void:
+	
+	if !is_alive: 
+		return
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -32,3 +38,10 @@ func _physics_process(delta: float) -> void:
 
 	if (!ray_result.is_empty()):
 		look_at(ray_result.position)
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Enemy"):
+		is_alive = false
+		$Weapon.queue_free()
+		$MeshInstance3D.queue_free()

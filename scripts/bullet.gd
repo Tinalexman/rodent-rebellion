@@ -10,6 +10,5 @@ func _ready() -> void:
 	$Timer.set_wait_time(5)
 	$Timer.start()
 
-
 func _process(delta: float) -> void:
 	position += bullet_direction * bullet_speed * delta
