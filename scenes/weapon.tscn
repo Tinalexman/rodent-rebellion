@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://6llsdq2sujom"]
+
+[ext_resource type="Script" uid="uid://s2kd0gopy0wy" path="res://scripts/weapon.gd" id="1_uxn4k"]
+[ext_resource type="PackedScene" uid="uid://dxy6103nskint" path="res://scenes/bullet.tscn" id="2_bmw2d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k27wv"]
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("shooting_position")]
+script = ExtResource("1_uxn4k")
+bullet_prefab = ExtResource("2_bmw2d")
+shooting_position = NodePath("ShootPosition")
+bullets_per_second = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.75, 0, 0, 0)
+mesh = SubResource("BoxMesh_k27wv")
+
+[node name="ShootPosition" type="Node3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, -0.0017546713, -0.00084748864, 0.38139403)
