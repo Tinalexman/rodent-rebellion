@@ -3,9 +3,14 @@ extends CharacterBody3D
 @export var SPEED = 5.0
 @export var camera : Camera3D
 @export var world_root_node: Node3D
+@export var shooting_position: Node3D
 
 
 var is_alive = true
+
+func _ready() -> void:
+	$Weapon.shooting_position = shooting_position
+
 
 func _physics_process(delta: float) -> void:
 	

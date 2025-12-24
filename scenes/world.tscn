@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2h1aw2vkvc2h"]
+[gd_scene load_steps=14 format=3 uid="uid://d2h1aw2vkvc2h"]
 
 [ext_resource type="Script" uid="uid://dr3n7vmxusowm" path="res://scripts/enemy_spawner.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://ds70l2yfgfsm1" path="res://scenes/player.tscn" id="1_nnsk1"]
@@ -20,6 +20,23 @@ size = Vector3(1, 0.5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nnsk1"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qfnet"]
+ground_bottom_color = Color(0.59886074, 0.51500416, 0.43913347, 1)
+ground_horizon_color = Color(0.57367647, 0.5654994, 0.5207991, 1)
+sun_angle_max = 174.57
+
+[sub_resource type="Sky" id="Sky_i7141"]
+sky_material = SubResource("ProceduralSkyMaterial_qfnet")
+
+[sub_resource type="Environment" id="Environment_4mrxx"]
+background_mode = 2
+sky = SubResource("Sky_i7141")
+ambient_light_source = 3
+ambient_light_color = Color(0.5138169, 0.85692924, 0.9289564, 1)
+reflected_light_source = 2
+tonemap_mode = 1
+fog_light_color = Color(0.8242993, 0.8421593, 0.86995155, 1)
+
 [node name="World" type="Node3D"]
 
 [node name="EnemySpawner" type="Node3D" parent="." node_paths=PackedStringArray("root_node")]
@@ -33,7 +50,7 @@ spawn_rate = 1
 [node name="Map" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Map"]
-transform = Transform3D(0.6683131, 0.7438801, 0, -0.7438801, 0.6683131, 0, 0, 0, 1, 0.2506386, 0.24716187, 0.5296092)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2506386, 0.24716187, 0.5296092)
 navigation_mesh = SubResource("NavigationMesh_4wyf3")
 
 [node name="Floor" type="MeshInstance3D" parent="Map/NavigationRegion3D"]
@@ -62,7 +79,7 @@ transform = Transform3D(-1.3113416e-07, 0, 2.9999998, 0, 2, 0, -2.9999998, 0, -1
 transform = Transform3D(-1.3113416e-07, 0, 2.9999998, 0, 2, 0, -2.9999998, 0, -1.3113416e-07, -3.106, 1.25, -25)
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera", "world_root_node") instance=ExtResource("1_nnsk1")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.872195, -50.702637)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0.872195, -50.702637)
 camera = NodePath("../CameraSpringArm/Camera3D")
 world_root_node = NodePath("..")
 
@@ -77,3 +94,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.9966759, -0.079709485, 0.01684694, -0.055693116, -0.5156771, 0.8549713, -0.059461713, -0.8530674, -0.51840216, -1.127, 100.006, -24.663)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4mrxx")
