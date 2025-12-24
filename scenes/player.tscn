@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds70l2yfgfsm1"]
+
+[ext_resource type="PackedScene" uid="uid://6llsdq2sujom" path="res://scenes/weapon.tscn" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cmnwb5frtnjfq" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" path="res://assets/models/Soldier.glb" id="3_soldier"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_g2els")
+
+[node name="SoldierModel" parent="." instance=ExtResource("3_soldier")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_u8vuu")
+
+[node name="Weapon" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_3vyb7")]
+transform = Transform3D(0.9999707, 0, -0.0076619666, 0, 1, 0, 0.0076619666, 0, 0.9999707, 0.15877199, 1.3259604, -0.81993014)
+player = NodePath("..")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g2els")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
